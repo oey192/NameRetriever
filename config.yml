@@ -1,0 +1,3 @@
+showStatus: true
+cmdRegex1: ^\/(?i)(tp|tphere|tpa|tpahere|tpo|tpohere|whois|mute|kick|jail|tempban|ban)
+cmdRegex2: ^\/(?i)(tp)

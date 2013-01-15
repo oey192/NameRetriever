@@ -1,0 +1,45 @@
+name: NameRetriever
+main: com.andoutay.nameretriever.NameRetriever
+version: 1.0.0
+
+description: >
+             NameRetriever provides a simple way to get the nickname or minecraft name of a player whether online or off based on the other by interfacing with Essentials
+
+softdepend: [Essentials]
+
+commands:
+    realname:
+        description: Gets the Minecraft name of a player based on their display name
+        usage: 'usage: /<command> [username]'
+        permission-message: 'You do not have access to that command'
+    realnick:
+        description: Gets the nickname of a player based on their Minecraft name
+        usage: 'usage: /<command> [username]'
+        permission-message: 'You do not have access to that command'
+    nameretriever:
+        description: Reloads config or lists the version of NameRetriever
+        usage: 'usage: /<command> <reload|version>'
+        permission-message: 'You do not have access to that command'
+        aliases: nr
+
+permissions:
+    nameretriever.*:
+        description: Gives access to all NameRetriever commands
+        default: false
+        children:
+            nameretriever.realname: true
+            nameretriever.realnick: true
+            nameretriever.reload: true
+            nameretriever.version: true
+    nameretriever.realname:
+        description: Gives access to the /realname command
+        default: false
+    nameretriever.realnick:
+        description: Gives access to the /realnick command
+        default: false
+    nameretriever.reload:
+        description: Gives access to /nameretriever reload
+        default: false
+    nameretriever.version:
+        description: Gives access to /nameretriever version
+        default: false
