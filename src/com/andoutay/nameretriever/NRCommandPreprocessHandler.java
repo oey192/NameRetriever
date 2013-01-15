@@ -2,6 +2,7 @@ package com.andoutay.nameretriever;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
@@ -14,7 +15,7 @@ public class NRCommandPreprocessHandler implements Listener
 		this.plugin = plugin;
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void onCommandPreprocess(PlayerCommandPreprocessEvent evt)
 	{
 		String cmd = evt.getMessage();
