@@ -40,6 +40,8 @@ Configuration
 showStatus:<br/>
 When true, the online or offline status of a plyaer is displayed along with their real- and nick-names
 
-cmdRegex1: the regular expression for matching all commands that should have their first argument replaced by the "realname" of that argument
+cmdRegex1:<br/>
+the regular expression for matching all commands that should have their first argument replaced by the "realname" of that argument
 
-cmdRegex2: the regular expression for matcching all commands that should have their frist two arguments replaced by the "realnames" of theose arguments
+cmdRegex2:<br/>
+the regular expression for matcching all commands that should have their frist two arguments replaced by the "realnames" of theose arguments
