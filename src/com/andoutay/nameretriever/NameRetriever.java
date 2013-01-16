@@ -1,9 +1,5 @@
 package com.andoutay.nameretriever;
 
-import java.util.HashMap;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -13,10 +9,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-/*
- * TODO: make Essentials a soft depend: if it's not here, set a static boolean that NREssentialsManger checks and only deals with basic displayName stuff if essentials isn't installed
- */
 
 public class NameRetriever extends JavaPlugin
 {
@@ -88,40 +80,8 @@ public class NameRetriever extends JavaPlugin
 	{
 		if (!(s instanceof ConsoleCommandSender || (s instanceof Player && ((Player)s).hasPermission("nameretriever.realname"))))
 			return noAccess(s);
-		
-		final Future<HashMap<String, String>> returnFuture = getServer().getScheduler().callSyncMethod(this, new Callable<HashMap<String, String>>() {
-			@Override
-			public HashMap<String, String> call()
-			{
-				return em.getName(args[0]);
-			}
-		});
 
-		getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
-			@Override
-			public void run()
-			{
-				HashMap<String, String> names = null;
-				try {
-					names = returnFuture.get();
-				} catch (InterruptedException e) {
-					s.sendMessage(chPref + ChatColor.RED + "Interrupted while attempting to get realname");
-					return;
-				} catch (ExecutionException e) {
-					s.sendMessage(chPref + ChatColor.RED + "Execution error while attempting to get realname");
-					return;
-				}
-
-				if (names.isEmpty())
-					s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Player not found");
-				else
-					for (String str : names.keySet())
-					{
-						s.sendMessage(names.get(str) + " is " + str);
-						if (NRConfig.showStatus && essPresent) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
-					}
-			}
-		});
+		em.getName(args[0], s);
 
 		return true;
 	}
@@ -131,38 +91,7 @@ public class NameRetriever extends JavaPlugin
 		if (!(s instanceof ConsoleCommandSender || (s instanceof Player && ((Player)s).hasPermission("nameretriever.realnick"))))
 			return noAccess(s);
 
-		final Future<HashMap<String, String>> returnFuture = getServer().getScheduler().callSyncMethod(this, new Callable<HashMap<String, String>>() {
-			@Override
-			public HashMap<String, String> call()
-			{
-				return em.getNickname(args[0]);
-			}
-		});
-
-		getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
-			@Override
-			public void run()
-			{
-				HashMap<String, String> names = null;
-				try {
-					names = returnFuture.get();
-				} catch (InterruptedException e) {
-					s.sendMessage(chPref + ChatColor.RED + "Interrupted while attempting to get nickname");
-					return;
-				} catch (ExecutionException e) {
-					s.sendMessage(chPref + ChatColor.RED + "Execution error while attempting to get nickname");
-					return;
-				}
-
-				if (names.isEmpty())
-					s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Player not found");
-				else
-					for(String str : names.keySet())
-					{
-						s.sendMessage(str + "'s nickname is " + names.get(str));
-						if (NRConfig.showStatus && essPresent) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
-					}
-			}});
+		em.getNickname(args[0], s);
 
 		return true;
 	}

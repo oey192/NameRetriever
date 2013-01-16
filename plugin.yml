@@ -1,6 +1,6 @@
 name: NameRetriever
 main: com.andoutay.nameretriever.NameRetriever
-version: 1.0.1
+version: 1.0.3
 
 description: >
              NameRetriever provides a simple way to get the nickname or minecraft name of a player whether online or off based on the other by interfacing with Essentials
