@@ -17,6 +17,8 @@ Commands
 
 /nameretriever version - shows the current version
 
+/nameretriever help - shows help for the plugin
+
 Note: /nr is an alias for nameretriever
 
 
@@ -34,6 +36,9 @@ Allows use of the /nameretriever reload command
 
 nameretriever.version<br/>
 Allows use of the /nameretriever version command
+
+nameretriever.help<br/>
+Allows use of the /nameretriever help command
 
 
 Configuration
