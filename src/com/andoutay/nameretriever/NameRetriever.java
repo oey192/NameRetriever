@@ -27,6 +27,7 @@ public class NameRetriever extends JavaPlugin
 	public void onEnable()
 	{
 		essPresent = (getServer().getPluginManager().getPlugin("Essentials") != null);
+		if (!essPresent) log.warning(logPref + "Essentials not found. This plugin will have limited functionality");
 		
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new NRCommandPreprocessHandler(this), this);
