@@ -14,8 +14,7 @@ public class NRConfig
 	{
 		NRConfig.plugin = plugin;
 		config = plugin.getConfig().getRoot();
-		//if (config.getString("stopSignal") == null || config.getString("monitorOnLaunch") == null);
-			config.options().copyDefaults(true);
+		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}
 	
