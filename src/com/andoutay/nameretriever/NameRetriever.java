@@ -13,9 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class NameRetriever extends JavaPlugin
 {
 	public static Logger log = Logger.getLogger("Minecraft");
-	public static String chPref = ChatColor.DARK_AQUA + "[NameRetriever] " + ChatColor.RESET;
 	public static String logPref = "[NameRetriever] ";
-	private NREssentialsManager em;
+	public static String chPref = ChatColor.DARK_AQUA + logPref + ChatColor.RESET;
+	private static NREssentialsManager em;
 	public static boolean essPresent;
 	
 	public void onLoad()
@@ -142,5 +142,10 @@ public class NameRetriever extends JavaPlugin
 	{
 		s.sendMessage(ChatColor.RED + "You do not have access to that command");
 		return true;
+	}
+	
+	public static NREssentialsManager getEssManager()
+	{
+		return em;
 	}
 }
