@@ -47,6 +47,8 @@ public class NameRetriever extends JavaPlugin
 			return reloadConfig(sender);
 		else if (isVersion(cmd.getName(), args))
 			return showVersion(sender);
+		else if (isHelp(cmd.getName(), args))
+			return showHelp(sender, label);
 		
 		return false;
 	}
@@ -74,6 +76,11 @@ public class NameRetriever extends JavaPlugin
 	private boolean isVersion(String name, String[] args)
 	{
 		return name.equalsIgnoreCase("nameretriever") && args.length == 1 && args[0].equalsIgnoreCase("version");
+	}
+	
+	private boolean isHelp(String name, String[] args)
+	{
+		return name.equalsIgnoreCase("nameretriever") && args.length == 1 && args[0].equalsIgnoreCase("help");
 	}
 	
 	private boolean findName(final CommandSender s, final String[] args)
@@ -113,6 +120,20 @@ public class NameRetriever extends JavaPlugin
 			return noAccess(s);
 		
 		s.sendMessage(chPref + "Current version: " + getDescription().getVersion());
+		return true;
+	}
+	
+	private boolean showHelp(CommandSender s, String label)
+	{
+		if (!(s instanceof ConsoleCommandSender || (s instanceof Player && ((Player)s).hasPermission("nameretriever.help"))))
+			return noAccess(s);
+		
+		s.sendMessage(chPref + "Help:");
+		s.sendMessage(label + " version: Show the current plugin version");
+		s.sendMessage(label + " reload: Reload the config file");
+		s.sendMessage(label + " help: Show this help message");
+		s.sendMessage("/realname <nickname>: Get the Minecraft username for a given nickname");
+		s.sendMessage("/realnick <username>: Get the nickname for a given minecraft username");
 		return true;
 	}
 

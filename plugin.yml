@@ -17,8 +17,8 @@ commands:
         usage: 'usage: /<command> [username]'
         permission-message: 'You do not have access to that command'
     nameretriever:
-        description: Reloads config or lists the version of NameRetriever
-        usage: 'usage: /<command> <reload|version>'
+        description: Reloads config or lists the version of NameRetriever. Also used to get help for the plugin
+        usage: 'usage: /<command> <reload|version|help>'
         permission-message: 'You do not have access to that command'
         aliases: nr
 
@@ -43,3 +43,5 @@ permissions:
     nameretriever.version:
         description: Gives access to /nameretriever version
         default: false
+    nameretriever.help:
+        description: Gives access to /nameretriever help
