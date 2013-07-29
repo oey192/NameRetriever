@@ -6,8 +6,8 @@ public class NRConfig
 {
 	private static Configuration config;
 	
-	public static boolean showStatus, getOfflineAlways;
-	public static String cmdRegex1, cmdRegex2;
+	public static boolean showStatus, getOfflineAlways, useAsync;
+	public static String cmdRegex1, cmdRegex2, nickIndicatorChar;
 	private static NameRetriever plugin;
 	
 	NRConfig(NameRetriever plugin)
@@ -34,6 +34,8 @@ public class NRConfig
 	{
 		showStatus = config.getBoolean("showStatus");
 		getOfflineAlways = config.getBoolean("getOfflineAlways");
+		useAsync = config.getBoolean("useAsync");
+		nickIndicatorChar = config.getString("nickIndicatorChar");
 		cmdRegex1 = config.getString("cmdRegex1");
 		cmdRegex2 = config.getString("cmdRegex2");
 	}

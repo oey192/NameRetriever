@@ -100,6 +100,7 @@ public class NREssentialsManager
 						if (temp2 == null)
 							temp2 = temp1;
 						else
+							temp2 = NRConfig.nickIndicatorChar + temp2;
 
 						ans.put(temp1, temp2);
 					}
