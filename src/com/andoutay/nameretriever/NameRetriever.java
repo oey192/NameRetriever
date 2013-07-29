@@ -144,6 +144,12 @@ public class NameRetriever extends JavaPlugin
 		return true;
 	}
 	
+	private boolean playerNotFound(CommandSender s)
+	{
+		s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Player not found");
+		return true;
+	}
+	
 	public static NREssentialsManager getEssManager()
 	{
 		return em;
