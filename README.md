@@ -55,3 +55,32 @@ the regular expression for matching all commands that should have their first ar
 
 cmdRegex2:<br/>
 the regular expression for matcching all commands that should have their frist two arguments replaced by the "realnames" of theose arguments
+
+
+API
+===
+
+NRAPI is the name of the API class. Use the static method NRAPI.getAPI() to get the singleton instance of the API. (It returns an object of type com.andoutay.nameretriever.NRAPI) All following methods are ment to be called on the singleton instance.
+
+<br/>
+String getNick(String)
+
+Returns the nickname associated with whatever Minecraft username is passed in. If an incomplete Minecraft username is passed in and more than one Minecraft username matches (based on players who have played on the current server), an empty string is returned. If no Minecraft username matches, null is returned.
+
+<br/>
+HashMap<String, String> getNicks(String)
+
+Given a search string, getNicks returns a HashMap containing all matching Minecraft usernames and their associated nicknames including Minecraft usernames that do not have associated nicknames.
+<br/>
+The HashMap is organized with username mapping to nickname (e.g. i_am_alive => ~Bob). For those who do not have a nickname, it maps username to username (e.g. i_am_alive => i_am_alive)
+<br/>
+In the event that no Minecraft usernames match the search string, an empty HashMap is returned
+
+<br/>
+HashMap<String, String> getNames(String)
+
+Given a search string, getNames returns a HashMap containing all matching nicknames and their associated Minecraft usernames. A player's display name does not count as a nickname if it is the same as their Minecraft username. Thus, if "alive" is passed as the search string and i_am_alive is a player who has played on the server who does not have a nickname, they will not be returned in the HashMap. However, if im_cooking has a nickname of WhosAliveNow, im_cooking => ~WhosAliveNow will be returned as a member of the HashMap.
+<br/>
+Note that the tilde character will be whatever is specified for the nickIndicatorChar and is not guaranteed to be a single character. It is possible for the server administrator to put whatever they like for this config value.
+<br/>
+In the event that no nicknames match the serach string, an empty HashMap is returned
