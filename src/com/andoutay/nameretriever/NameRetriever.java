@@ -50,6 +50,11 @@ public class NameRetriever extends JavaPlugin
 			return showVersion(sender);
 		else if (isHelp(cmd.getName(), args))
 			return showHelp(sender, label);
+		else if (isNameButWrongArgs(cmd.getName(), args))
+		{
+			sender.sendMessage(cmd.getUsage().replace("<command>", label));
+			return true;
+		}
 		
 		return false;
 	}
@@ -62,6 +67,11 @@ public class NameRetriever extends JavaPlugin
 	private boolean isName(String name, String[] args)
 	{
 		return name.equalsIgnoreCase("realname") && args.length == 1;
+	}
+	
+	private boolean isNameButWrongArgs(String name, String[] args)
+	{
+		return name.equalsIgnoreCase("realname") && args.length != 1;
 	}
 	
 	private boolean isNick(String name, String[] args)
@@ -130,11 +140,11 @@ public class NameRetriever extends JavaPlugin
 			return noAccess(s);
 		
 		s.sendMessage(chPref + "Help:");
-		s.sendMessage(label + " version: Show the current plugin version");
-		s.sendMessage(label + " reload: Reload the config file");
-		s.sendMessage(label + " help: Show this help message");
+		s.sendMessage("/" + label + " version: Show the current plugin version");
+		s.sendMessage("/" + label + " reload: Reload the config file");
+		s.sendMessage("/" + label + " help: Show this help message");
 		s.sendMessage("/realname <nickname>: Get the Minecraft username for a given nickname");
-		s.sendMessage("/realnick <username>: Get the nickname for a given minecraft username");
+		s.sendMessage("/realnick <username>: Get the nickname for a given Minecraft username");
 		return true;
 	}
 

@@ -10,10 +10,11 @@ softdepend: [Essentials]
 commands:
     realname:
         description: Gets the Minecraft name of a player based on their display name
-        usage: 'usage: /<command> [username]'
+        usage: 'usage: /<command> <nickname>'
+        aliases: testing
     realnick:
         description: Gets the nickname of a player based on their Minecraft name
-        usage: 'usage: /<command> [username]'
+        usage: 'usage: /<command> <username>'
     nameretriever:
         description: Reloads config or lists the version of NameRetriever. Also used to get help for the plugin
         usage: 'usage: /<command> <reload|version|help>'
