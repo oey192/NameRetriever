@@ -1,5 +1,9 @@
 package com.andoutay.nameretriever;
 
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -99,7 +103,53 @@ public class NameRetriever extends JavaPlugin
 		if (!(s instanceof ConsoleCommandSender || (s instanceof Player && ((Player)s).hasPermission("nameretriever.realname"))))
 			return noAccess(s);
 
-		em.getName(args[0], s);
+		final Future<HashMap<String, String>> returnFuture = getServer().getScheduler().callSyncMethod(this, new Callable<HashMap<String, String>>() {
+			@Override
+			public HashMap<String, String> call()
+			{
+				return em.getNamesForNick(args[0]);					
+			}
+		});
+		
+		if (NRConfig.useAsync)
+		{
+			getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
+				@Override
+				public void run()
+				{
+					try {
+						HashMap<String, String> names = returnFuture.get();
+
+						if (names.isEmpty())
+							s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "No player found with that nickname");
+						else
+							for (String str : names.keySet())
+							{
+								s.sendMessage(names.get(str) + " is " + str);
+								if (NRConfig.showStatus && NameRetriever.essPresent) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
+							}
+
+					} catch (InterruptedException e) {
+						s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Unexpected interruption while fetching results");
+					} catch (ExecutionException e) {
+						s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Unexpected execution error while fetching results");
+					}
+				}
+			});
+		}
+		else
+		{
+			HashMap<String, String> names = em.getNamesForNick(args[0]);
+
+			if (names.isEmpty())
+				s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "No player found with that nickname");
+			else
+				for (String str : names.keySet())
+				{
+					s.sendMessage(names.get(str) + " is " + str);
+					if (NRConfig.showStatus && NameRetriever.essPresent) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
+				}
+		}
 
 		return true;
 	}
@@ -109,7 +159,53 @@ public class NameRetriever extends JavaPlugin
 		if (!(s instanceof ConsoleCommandSender || (s instanceof Player && ((Player)s).hasPermission("nameretriever.realnick"))))
 			return noAccess(s);
 
-		em.getNickname(args[0], s);
+		final Future<HashMap<String, String>> returnFuture = getServer().getScheduler().callSyncMethod(this, new Callable<HashMap<String, String>>() {
+			@Override
+			public HashMap<String, String> call()
+			{
+				return em.getNicksForName(args[0]);					
+			}
+		});
+		
+		if (NRConfig.useAsync)
+		{
+			getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
+				@Override
+				public void run()
+				{
+					try {
+						HashMap<String, String> nicks = returnFuture.get();
+
+						if (nicks.isEmpty())
+							s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Player not found");
+						else
+							for(String str : nicks.keySet())
+							{
+								s.sendMessage(str + "'s nickname is " + nicks.get(str));
+								if (NRConfig.showStatus) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
+							}
+
+					} catch (InterruptedException e) {
+						s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Unexpected interruption while fetching results");
+					} catch (ExecutionException e) {
+						s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Unexpected execution error while fetching results");
+					}
+				}
+			});
+		}
+		else
+		{
+			HashMap<String, String> nicks = em.getNicksForName(args[0]);
+
+			if (nicks.isEmpty())
+				s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Player not found");
+			else
+				for(String str : nicks.keySet())
+				{
+					s.sendMessage(str + "'s nickname is " + nicks.get(str));
+					if (NRConfig.showStatus) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
+				}	
+		}
 
 		return true;
 	}
