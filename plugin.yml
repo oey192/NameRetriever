@@ -31,6 +31,7 @@ permissions:
             nameretriever.realnick: true
             nameretriever.reload: true
             nameretriever.version: true
+            nameretriever.help: true
     nameretriever.realname:
         description: Gives access to the /realname command
         default: false
@@ -45,3 +46,4 @@ permissions:
         default: false
     nameretriever.help:
         description: Gives access to /nameretriever help
+        default: false
