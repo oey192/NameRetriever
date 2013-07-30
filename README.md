@@ -50,6 +50,12 @@ When true, the online or offline status of a plyaer is displayed along with thei
 getOfflineAlways:<br/>
 When true, the plugin searches through offline players even when it finds online players that match the parameter in the /realname and /realnick commands
 
+nickIndicatorChar:<br/>
+The character to display before someone's nickname. This only effects results returned via the realname and realnick commands. By default it is set to ~ to match Essentials' default
+
+useAsync:<br/>
+Set whether the plugin should make asynchronous calls when accessing nicknames stored on disk. It is recommended this be turned on especially on large servers to prevent server lag. The more players who have played on a server, the more time accessing the disk will take
+
 cmdRegex1:<br/>
 the regular expression for matching all commands that should have their first argument replaced by the "realname" of that argument
 

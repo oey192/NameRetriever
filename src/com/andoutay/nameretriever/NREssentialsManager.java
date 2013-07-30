@@ -55,7 +55,7 @@ public class NREssentialsManager
 				{
 					String temp = YamlConfiguration.loadConfiguration(yml).getString("nickname");
 					if (temp != null && temp.toLowerCase().contains(partial.toLowerCase()))
-						ans.put(plugin.getServer().getOfflinePlayer(yml.getName().substring(0, yml.getName().length() - 4)).getName(), "~" + temp);
+						ans.put(plugin.getServer().getOfflinePlayer(yml.getName().substring(0, yml.getName().length() - 4)).getName(), NRConfig.nickIndicatorChar + temp);
 				}
 		}
 		else
