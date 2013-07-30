@@ -11,15 +11,12 @@ commands:
     realname:
         description: Gets the Minecraft name of a player based on their display name
         usage: 'usage: /<command> [username]'
-        permission-message: 'You do not have access to that command'
     realnick:
         description: Gets the nickname of a player based on their Minecraft name
         usage: 'usage: /<command> [username]'
-        permission-message: 'You do not have access to that command'
     nameretriever:
         description: Reloads config or lists the version of NameRetriever. Also used to get help for the plugin
         usage: 'usage: /<command> <reload|version|help>'
-        permission-message: 'You do not have access to that command'
         aliases: nr
 
 permissions:
