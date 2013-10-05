@@ -45,7 +45,7 @@ Configuration
 ===
 
 showStatus:<br/>
-When true, the online or offline status of a plyaer is displayed along with their real- and nick-names
+When true, the online or offline status of a player is displayed along with their real- and nick-names
 
 getOfflineAlways:<br/>
 When true, the plugin searches through offline players even when it finds online players that match the parameter in the /realname and /realnick commands
