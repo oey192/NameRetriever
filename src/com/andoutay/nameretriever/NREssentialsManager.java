@@ -57,7 +57,7 @@ public class NREssentialsManager
 				}
 		}
 		else
-			log.warning(NameRetriever.logPref + "Could not find Essentials' userdata folder when attempting to retrieve nicknames");
+			log.warning(NameRetriever.logPref + "Could not find Essentials' userdata folder when attempting to retrieve usernames");
 		
 		return ans;
 	}
