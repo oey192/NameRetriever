@@ -60,7 +60,7 @@ cmdRegex1:<br/>
 the regular expression for matching all commands that should have their first argument replaced by the "realname" of that argument
 
 cmdRegex2:<br/>
-the regular expression for matcching all commands that should have their frist two arguments replaced by the "realnames" of theose arguments
+the regular expression for matching all commands that should have their frist two arguments replaced by the "realnames" of theose arguments
 
 
 API
