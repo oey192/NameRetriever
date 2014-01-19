@@ -111,21 +111,39 @@ public class NameRetriever extends JavaPlugin
 			}
 		});
 		
+		final Future<HashMap<String, String>> returnFuture2 = getServer().getScheduler().callSyncMethod(this, new Callable<HashMap<String, String>>() {
+			@Override
+			public HashMap<String, String> call()
+			{
+				return em.getNicksForName(args[0]);					
+			}
+		});
+		
 		if (NRConfig.useAsync)
 		{
 			getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
 				@Override
 				public void run()
 				{
+					boolean fnick = false;
 					try {
 						HashMap<String, String> names = returnFuture.get();
 
+						if (names.isEmpty())
+						{
+							names = returnFuture2.get();
+							fnick = true;
+						}
+						
 						if (names.isEmpty())
 							s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "No player found with that nickname");
 						else
 							for (String str : names.keySet())
 							{
-								s.sendMessage(names.get(str) + " is " + str);
+								if (fnick)
+									s.sendMessage(str + "'s nickname is " + names.get(str));
+								else
+									s.sendMessage(names.get(str) + " is " + str);
 								if (NRConfig.showStatus && NameRetriever.essPresent) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
 							}
 
@@ -139,14 +157,23 @@ public class NameRetriever extends JavaPlugin
 		}
 		else
 		{
+			boolean nick = false;
 			HashMap<String, String> names = em.getNamesForNick(args[0]);
+			if (names.isEmpty())
+			{
+				names = em.getNicksForName(args[0]);
+				nick = true;
+			}
 
 			if (names.isEmpty())
 				s.sendMessage(ChatColor.RED + "Error: " + ChatColor.DARK_RED + "No player found with that nickname");
 			else
 				for (String str : names.keySet())
 				{
-					s.sendMessage(names.get(str) + " is " + str);
+					if (nick)
+						s.sendMessage(str + "'s nickname is " + names.get(str));
+					else
+						s.sendMessage(names.get(str) + " is " + str);
 					if (NRConfig.showStatus && NameRetriever.essPresent) s.sendMessage("Status: " + ((getServer().getPlayerExact(str) == null) ? (ChatColor.RED + "Offline") : (ChatColor.GREEN + "Online")));
 				}
 		}
@@ -240,7 +267,9 @@ public class NameRetriever extends JavaPlugin
 		s.sendMessage("/" + label + " reload: Reload the config file");
 		s.sendMessage("/" + label + " help: Show this help message");
 		s.sendMessage("/realname <nickname>: Get the Minecraft username for a given nickname");
+		s.sendMessage("      Aliases: /rname, /name");
 		s.sendMessage("/realnick <username>: Get the nickname for a given Minecraft username");
+		s.sendMessage("      Alias: /rnick");
 		return true;
 	}
 
